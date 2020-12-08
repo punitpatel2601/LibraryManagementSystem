@@ -23,6 +23,16 @@ class Publisher(models.Model):
         return self.name + " @ ID = " + str(self.id)
 
 
+class Location(models.Model):
+    address = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+    phone = models.IntegerField(null=True)
+    contact_name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name + " " + self.address
+
+
 class Book(models.Model):
     id = models.IntegerField(primary_key=True, unique=True)
     title = models.CharField(max_length=100)
@@ -32,12 +42,47 @@ class Book(models.Model):
     copies = models.IntegerField()
     language = models.CharField(max_length=10)
 
+    OTHER = 'OTHER'
+    BIOGRAPHY = 'BIOGRAPHY'
+    FICTION = 'FICTION'
+    NONFICTION = 'NON-FICTION'
+
+    BOOK_TYPES = ((OTHER, 'Other'),
+                  (BIOGRAPHY, 'Biography'),
+                  (FICTION, 'Fiction'),
+                  (NONFICTION, 'Non-Fiction'))
+
+    book_type = models.CharField(max_length=25, choices=BOOK_TYPES, default=OTHER)
+
+
     author = models.ForeignKey(Author, default=0, on_delete=models.SET_DEFAULT)
     publisher = models.ForeignKey(
         Publisher, default=0, on_delete=models.SET_DEFAULT)
 
     def __str__(self):
         return self.title
+
+class Available_Book(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.book)
+
+class Unavailable_Book(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    next_availability = models.DateField
+
+    def __str__(self):
+        return str(self.book)
+
+class Series(models.Model):
+    series_name = models.CharField(max_length=50)
+    no_books = models.IntegerField()
+    books = models.ForeignKey(Book, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.series_name
 
 
 # Users/Admin

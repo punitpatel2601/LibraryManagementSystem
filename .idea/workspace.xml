@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="918996bd-56e7-4c89-b0bc-96ed2df95ec0" name="Default Changelist" comment="">
+    <list default="true" id="918996bd-56e7-4c89-b0bc-96ed2df95ec0" name="Default Changelist" comment="c">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +24,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -33,8 +39,16 @@
       <option name="presentableId" value="Default" />
       <updated>1607450532146</updated>
       <workItem from="1607450535202" duration="3328000" />
-      <workItem from="1607454310547" duration="215000" />
+      <workItem from="1607454310547" duration="4531000" />
     </task>
+    <task id="LOCAL-00001" summary="c">
+      <created>1607454626521</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1607454626521</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -50,5 +64,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="c" />
+    <option name="LAST_COMMIT_MESSAGE" value="c" />
   </component>
 </project>
