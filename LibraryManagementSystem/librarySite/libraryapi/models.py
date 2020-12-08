@@ -1,6 +1,26 @@
 from django.db import models
 
-# Create your models here.
+from django.contrib.auth.models import User
+
+
+# Books
+
+class Author(models.Model):
+    id = models.IntegerField(primary_key=True, unique=True)
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name + " @ ID = " + str(self.id)
+
+
+class Publisher(models.Model):
+    id = models.IntegerField(primary_key=True, unique=True)
+    name = models.CharField(max_length=30)
+    country = models.CharField(max_length=20)
+    phone = models.IntegerField()
+
+    def __str__(self):
+        return self.name + " @ ID = " + str(self.id)
 
 
 class Book(models.Model):
@@ -12,29 +32,41 @@ class Book(models.Model):
     copies = models.IntegerField()
     language = models.CharField(max_length=10)
 
-    aID = models.ForeignKey(Author, on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, default=0, on_delete=models.SET_DEFAULT)
+    publisher = models.ForeignKey(
+        Publisher, default=0, on_delete=models.SET_DEFAULT)
 
     def __str__(self):
         return self.title
 
 
-class Author(models.Model):
-    authorID = models.IntegerField(primary_key=True, unique=True)
-    aName = models.CharField(max_length=100)
+# Users/Admin
 
-    bookID = models.ForeignKey(Book, on_delete=models.CASCADE)
+class Customer(models.Model):
 
-    def __str__(self):
-        return self.aName + " @ ID = " + str(self.authorID)
-
-
-class Publisher(models.Model):
-    publisherID = models.IntegerField(primary_key=True, unique=True)
-    pName = models.CharField(max_length=30)
-    pCountry = models.CharField(max_length=20)
-    phone = models.IntegerField()
-
-    bookID = models.ForeignKey(Book, on_delete=models.CASCADE)
+    books_withdrawn = models.ForeignKey(
+        Book, on_delete=models.SET_NULL, null=True, related_name="books_with")
+    books_requested = models.ForeignKey(
+        Book, on_delete=models.SET_NULL, null=True, related_name="books_req")
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    ucid = models.IntegerField(primary_key=True)
+    faculty = models.CharField(max_length=25)
 
     def __str__(self):
-        return self.pName + " @ ID = " + str(self.publisherID)
+        return str(self.username) + " @UCID = " + str(self.ucid)
+
+
+class Student(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    major = models.CharField(max_length=25)
+
+    def __str__(self):
+        return str(self.customer) + " Major: " + self.major
+
+
+class Professor(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    years_taught = models.IntegerField
+
+    def __str__(self):
+        return str(self.customer) + " Years Taught: " + str(self.years_taught)
