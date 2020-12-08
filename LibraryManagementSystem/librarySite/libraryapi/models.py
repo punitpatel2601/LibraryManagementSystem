@@ -1,8 +1,5 @@
 from django.db import models
 
-from django.contrib.auth.models import User
-
-
 # Books
 
 class Author(models.Model):
@@ -53,14 +50,13 @@ class Book(models.Model):
                   (NONFICTION, 'Non-Fiction'))
 
     book_type = models.CharField(max_length=25, choices=BOOK_TYPES, default=OTHER)
-
-
     author = models.ForeignKey(Author, default=0, on_delete=models.SET_DEFAULT)
     publisher = models.ForeignKey(
         Publisher, default=0, on_delete=models.SET_DEFAULT)
 
     def __str__(self):
         return self.title
+
 
 class Available_Book(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
@@ -69,12 +65,14 @@ class Available_Book(models.Model):
     def __str__(self):
         return str(self.book)
 
+
 class Unavailable_Book(models.Model):
+    next_availability = models.CharField(max_length=25)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    next_availability = models.DateField
 
     def __str__(self):
         return str(self.book)
+
 
 class Series(models.Model):
     series_name = models.CharField(max_length=50)
@@ -87,31 +85,33 @@ class Series(models.Model):
 
 # Users/Admin
 
-class Customer(models.Model):
+class Person(models.Model):
 
     books_withdrawn = models.ForeignKey(
         Book, on_delete=models.SET_NULL, null=True, related_name="books_with")
     books_requested = models.ForeignKey(
         Book, on_delete=models.SET_NULL, null=True, related_name="books_req")
-    username = models.ForeignKey(User, on_delete=models.CASCADE)
+
     ucid = models.IntegerField(primary_key=True)
+    password = models.CharField(max_length=25)
+    name = models.CharField(max_length=25)
     faculty = models.CharField(max_length=25)
 
     def __str__(self):
-        return str(self.username) + " @UCID = " + str(self.ucid)
+        return str(self.ucid)
 
 
 class Student(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
     major = models.CharField(max_length=25)
 
     def __str__(self):
-        return str(self.customer) + " Major: " + self.major
+        return str(self.person) + " Major: " + self.major
 
 
 class Professor(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
     years_taught = models.IntegerField
 
     def __str__(self):
-        return str(self.customer) + " Years Taught: " + str(self.years_taught)
+        return str(self.person) + " Years Taught: " + str(self.years_taught)

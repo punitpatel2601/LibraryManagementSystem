@@ -10,7 +10,7 @@ router.register(r'booksUnavailable', views.BookUnavailableViewSet)
 router.register(r'series', views.SeriesViewSet)
 router.register(r'authors', views.AuthorViewSet)
 router.register(r'publishers', views.PublisherViewSet)
-router.register(r'customers', views.CustomerViewSet)
+router.register(r'persons', views.PersonViewSet)
 router.register(r'students', views.StudentViewSet)
 router.register(r'professors', views.ProfessorViewSet)
 

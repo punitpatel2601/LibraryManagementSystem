@@ -2,7 +2,7 @@ from django.db.models import fields
 from rest_framework import serializers
 from rest_framework.serializers import PrimaryKeyRelatedField
 
-from .models import Author, Location, Book, Available_Book, Unavailable_Book, Series, Publisher, Customer, Student, Professor
+from .models import Author, Location, Book, Available_Book, Unavailable_Book, Series, Publisher, Person, Student, Professor
 
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -46,7 +46,7 @@ class BookUnavailableSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Unavailable_Book
-        fields = ('book', 'next_availability')
+        fields = ('next_availability', 'book')
 
 
 class SeriesSerializer(serializers.ModelSerializer):
@@ -57,23 +57,24 @@ class SeriesSerializer(serializers.ModelSerializer):
         fields = ('series_name', 'no_books', 'books')
 
 
-class CustomerSerializer(serializers.ModelSerializer):
+
+class PersonSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Customer
+        model = Person
         fields = "__all__"
 
 
 class StudentSerializer(serializers.ModelSerializer):
-    customer = CustomerSerializer("customer")
+    person = PersonSerializer("person")
 
     class Meta:
         model = Student
-        fields = ("customer", "major")
+        fields = ("person", "major")
 
 
 class ProfessorSerializer(serializers.ModelSerializer):
-    customer = CustomerSerializer("customer")
+    person = PersonSerializer("person")
 
     class Meta:
         model = Professor
-        fields = ("customer", "years_taught")
+        fields = ("person", "years_taught")
