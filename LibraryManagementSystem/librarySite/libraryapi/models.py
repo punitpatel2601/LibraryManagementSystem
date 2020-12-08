@@ -11,7 +11,8 @@ class Book(models.Model):
     description = models.CharField(max_length=500)
     copies = models.IntegerField()
     language = models.CharField(max_length=10)
-    pubID = models.IntegerField
+
+    aID = models.ForeignKey(Author, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -20,6 +21,8 @@ class Book(models.Model):
 class Author(models.Model):
     authorID = models.IntegerField(primary_key=True, unique=True)
     aName = models.CharField(max_length=100)
+
+    bookID = models.ForeignKey(Book, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.aName + " @ ID = " + str(self.authorID)
@@ -30,6 +33,8 @@ class Publisher(models.Model):
     pName = models.CharField(max_length=30)
     pCountry = models.CharField(max_length=20)
     phone = models.IntegerField()
+
+    bookID = models.ForeignKey(Book, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.pName + " @ ID = " + str(self.publisherID)

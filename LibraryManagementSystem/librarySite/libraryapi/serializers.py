@@ -1,27 +1,28 @@
 from django.db.models import fields
 from rest_framework import serializers
+from rest_framework.serializers import PrimaryKeyRelatedField
 
 from .models import Author, Book, Publisher
 
 
-class BookSerializer(serializers.HyperlinkedModelSerializer):
-
-    publisher_details = serializers.HyperlinkedRelatedField(
-        many=False, read_only=True, view_name='publisher_details')
-
+class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ('id', 'title', 'year', 'pages',
-                  'description', 'copies', 'language', 'publisher_details')
+                  'description', 'copies', 'language')
 
 
-class AuthorSerializer(serializers.HyperlinkedModelSerializer):
+class AuthorSerializer(serializers.ModelSerializer):
+    bookID = PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = Author
-        fields = ('authorID', 'aName')
+        fields = ('authorID', 'aName', 'bookID')
 
 
-class PublisherSerializer(serializers.HyperlinkedModelSerializer):
+class PublisherSerializer(serializers.ModelSerializer):
+    bookID = PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = Publisher
-        fields = ('publisherID', 'pName', 'pCountry', 'phone')
+        fields = ('publisherID', 'pName', 'pCountry', 'phone', 'bookID')
