@@ -4,7 +4,6 @@ from rest_framework.serializers import PrimaryKeyRelatedField
 
 from .models import Author, Book, Publisher, Customer, Student, Professor
 
-
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
@@ -18,10 +17,13 @@ class PublisherSerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer('author')
+    publisher = PublisherSerializer('publisher')
+
     class Meta:
         model = Book
         fields = ('id', 'title', 'year', 'pages',
-                  'description', 'copies', 'language')
+                  'description', 'copies', 'language', 'author', 'publisher')
 
 
 class CustomerSerializer(serializers.ModelSerializer):
