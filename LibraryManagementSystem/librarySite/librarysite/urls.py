@@ -20,6 +20,4 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('libraryapi.urls')),
-    path('index/', views.index),
-    path('login/', views.login),
 ]

@@ -19,4 +19,10 @@ router.register(r'professors', views.ProfessorViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('register/', views.register),
+    path('login/', views.login),
+    path('index/', views.index),
+    path('welcome/', views.welcome),
+    path('login/notSuccess/', views.unsuccessful),
+    path('viewBooks/', views.display_books),
 ]

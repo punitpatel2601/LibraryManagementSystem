@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="View Books">
+    <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif;"> Displaying All Books </h3>
+    <p style="font-family: 'Courier New', Courier, monospace;">
+        {% for book in books %}
+        {book.All}<br>
+        {% endfor %}
+    </p>
+
+</div>
+
+{% endblock %}

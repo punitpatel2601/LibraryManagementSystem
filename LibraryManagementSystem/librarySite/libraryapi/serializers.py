@@ -4,6 +4,7 @@ from rest_framework.serializers import PrimaryKeyRelatedField
 
 from .models import Author, Location, Book, Available_Book, Unavailable_Book, Series, Publisher, Person, Student, Professor
 
+
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
@@ -57,7 +58,6 @@ class SeriesSerializer(serializers.ModelSerializer):
         fields = ('series_name', 'no_books', 'books')
 
 
-
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
@@ -78,3 +78,26 @@ class ProfessorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Professor
         fields = ("person", "years_taught")
+
+
+class RegistrationSerializer(serializers.ModelSerializer):
+    password2 = serializers.CharField(
+        style={'input_type': 'password'}, write_only=True)
+
+    class Meta:
+        model = Person
+        fields = ['ucid', 'password', 'password2']
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
+
+        def save(self):
+            Person = Person(
+                ucid=self.validated_data['ucid']
+            )
+            password = self.validated_data['password']
+            password2 = self.validated_data['password2']
+
+            Person.set_password[password]
+            Person.save()
+            return Person

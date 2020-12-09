@@ -2,6 +2,7 @@ from django.db import models
 
 # Books
 
+
 class Author(models.Model):
     id = models.IntegerField(primary_key=True, unique=True)
     name = models.CharField(max_length=100)
@@ -49,7 +50,8 @@ class Book(models.Model):
                   (FICTION, 'Fiction'),
                   (NONFICTION, 'Non-Fiction'))
 
-    book_type = models.CharField(max_length=25, choices=BOOK_TYPES, default=OTHER)
+    book_type = models.CharField(
+        max_length=25, choices=BOOK_TYPES, default=OTHER)
     author = models.ForeignKey(Author, default=0, on_delete=models.SET_DEFAULT)
     publisher = models.ForeignKey(
         Publisher, default=0, on_delete=models.SET_DEFAULT)
