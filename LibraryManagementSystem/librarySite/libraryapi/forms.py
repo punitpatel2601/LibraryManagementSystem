@@ -15,4 +15,11 @@ class RegisterForm(forms.Form):
 
 
 class SearchBookForm(forms.Form):
-    book_name = forms.CharField(label="book_name", max_length=50)
+    book_name = forms.CharField(
+        label="book_name", max_length=50, required=False)
+    book_id = forms.IntegerField(
+        label="book_id", max_value=999, required=False)
+
+
+class BorrowBookForm(forms.Form):
+    book_id = forms.IntegerField(label="book_id", max_value=999)

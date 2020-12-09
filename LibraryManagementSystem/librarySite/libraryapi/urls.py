@@ -24,5 +24,10 @@ urlpatterns = [
     path('index/', views.index),
     path('welcome/', views.welcome),
     path('login/notSuccess/', views.unsuccessful),
-    path('viewBooks/', views.display_books),
+    path('welcome/viewBooks/', views.display_books),
+    path('welcome/searchBook/', views.search_book),
+    path('searchBook/', views.search_book),
+    path('selectBook/', views.borrow_book),
+    path('welcome/selectBook/', views.borrow_book),
+    path('welcome/viewBooks/selectBook/', views.borrow_book),
 ]

@@ -2,14 +2,27 @@
 
 {% block content %}
 
-<div class="View Books">
-    <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif;"> Displaying All Books </h3>
+<div class="View-Books">
+    <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif;"> Displaying Book(s) </h3>
     <p style="font-family: 'Courier New', Courier, monospace;">
+        ID----Name----Year----Availability_Location<br>
         {% for book in books %}
-        {book.All}<br>
+        {{book.id}},{{book.title}}, {{book.year}}, {{book.book_availability}}<br>
         {% endfor %}
     </p>
-
+</div>
+<br>
+<br>
+<div class="Issue-Book">
+    <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Select the book you need to Borrow.. </h3>
+    <p>Please take a note of the ID of the book, you want to borrow.</p>
+    <form action="/selectBook/" method="POST">
+        {% csrf_token %}
+        {{form}}
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    </p>
 </div>
 
 {% endblock %}

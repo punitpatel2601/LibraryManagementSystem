@@ -31,6 +31,14 @@ class Location(models.Model):
         return self.name + " " + self.address
 
 
+class Available_Book(models.Model):
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+
+
+class Unavailable_Book(models.Model):
+    next_availability = models.CharField(max_length=25)
+
+
 class Book(models.Model):
     id = models.IntegerField(primary_key=True, unique=True)
     title = models.CharField(max_length=100)
@@ -56,24 +64,13 @@ class Book(models.Model):
     publisher = models.ForeignKey(
         Publisher, default=0, on_delete=models.SET_DEFAULT)
 
+    book_available = models.ForeignKey(
+        Available_Book, on_delete=models.CASCADE, blank=True, null=True)
+    book_unavailable = models.ForeignKey(
+        Unavailable_Book, on_delete=models.CASCADE, blank=True, null=True)
+
     def __str__(self):
         return self.title
-
-
-class Available_Book(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.book)
-
-
-class Unavailable_Book(models.Model):
-    next_availability = models.CharField(max_length=25)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.book)
 
 
 class Series(models.Model):

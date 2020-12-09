@@ -23,31 +23,32 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class BookSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer('author')
-    publisher = PublisherSerializer('publisher')
-
-    class Meta:
-        model = Book
-        fields = ('id', 'title', 'year', 'pages',
-                  'description', 'copies', 'language', 'book_type', 'author', 'publisher')
-
-
 class BookAvailableSerializer(serializers.ModelSerializer):
-    book = BookSerializer('book')
     location = LocationSerializer('location')
 
     class Meta:
         model = Available_Book
-        fields = ('book', 'location')
+        fields = ('location')
 
 
 class BookUnavailableSerializer(serializers.ModelSerializer):
-    book = BookSerializer('book')
 
     class Meta:
         model = Unavailable_Book
-        fields = ('next_availability', 'book')
+        fields = ('next_availability')
+
+
+class BookSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer('author')
+    publisher = PublisherSerializer('publisher')
+
+    book_available = BookAvailableSerializer('book_available')
+    book_unavailable = BookUnavailableSerializer('book_unavailable')
+
+    class Meta:
+        model = Book
+        fields = ('id', 'title', 'year', 'pages',
+                  'description', 'copies', 'language', 'book_type', 'author', 'publisher', 'book_available', 'book_unavailable')
 
 
 class SeriesSerializer(serializers.ModelSerializer):

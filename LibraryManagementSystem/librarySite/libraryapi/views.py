@@ -2,12 +2,14 @@ from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import serializers
 from .serializers import AuthorSerializer, BookSerializer, SeriesSerializer, PublisherSerializer, PersonSerializer, LocationSerializer, BookAvailableSerializer, BookUnavailableSerializer, StudentSerializer, ProfessorSerializer, RegistrationSerializer
 from .models import Author, Location, Book, Available_Book, Series, Unavailable_Book, Publisher, Person, Student, Professor
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, SearchBookForm, BorrowBookForm
+
 
 # Create your views here.
 
@@ -62,6 +64,7 @@ class ProfessorViewSet(viewsets.ModelViewSet):
     queryset = Professor.objects.all()
 
 
+'''
 class searchForPerson(APIView):
     def get(self, request):
         if(request.method != 'GET'):
@@ -76,6 +79,7 @@ class searchForPerson(APIView):
         for x in person_list:
             results.append(PersonSerializer(x).data)
         return Response(results)
+'''
 
 
 def index(request):
@@ -149,30 +153,60 @@ def unsuccessful(request):
 
 
 def display_books(request):
-    books = Book.object.all()
-    return render(request, 'api/viewBooks.html', {'books': books})
+    books = Book.objects.all()
+    form = BorrowBookForm()
+    return render(request, 'api/viewBooks.html', {'books': books, 'form': form})
 
 
-'''
-def search_book(request):
-    if (request.method != 'GET'):
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+def borrow_book(request):
+    print(str(person.ucid) + " Borrow")
+    if(request.method == 'POST'):
+        form = BorrowBookForm(request.POST)
+        if form.is_valid():
+            query_id = form.cleaned_data['book_id']
+
+            book = Book.objects.filter(id=query_id)
+
+            if (book and book.book_unavailable is None):
+                person.books_withdrawn = book[0]
+
+                person.save()
+
+                book[0].book_available = None
+                book[0].book_unavailable = Unavailable_Book.objects.create(
+                    next_availability='30 days')
+                book[0].save()
+
+            return HttpResponseRedirect('/welcome/')
     else:
-        form = SearchBookForm(request.GET)
-        if form.is_valid:
-            query_name = form.cleaned_data["book_name"]
+        form = BorrowBookForm()
+        return HttpResponseRedirect('selectBook/', {'form', form})
+
+
+def search_book(request):
+    if (request.method == 'GET'):
+        form = SearchBookForm()
+        return render(request, 'api/searchBooks.html', {'form': form})
+    else:
+        form = SearchBookForm(request.POST)
+        if form.is_valid():
+            query_name = form.cleaned_data['book_name']
+            query_id = form.cleaned_data['book_id']
+
+            if(query_id == None and query_name == None):
+                return HttpResponseRedirect('/searchBook/')
+
             print(query_name)
 
-            res = []
-            books = Book.object.filter(title=query_name)
+            if (query_id):
+                books = Book.objects.filter(id=query_id)
+            else:
+                books = Book.objects.filter(title=query_name)
 
-            for b in books:
-                res.append(BookSerializer(b).data)
-
-            return Response(res)
+            return render(request, 'api/viewBooks.html', {'books': books})
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-'''
+            return Response('Error', status=status.HTTP_400_BAD_REQUEST)
+
 
 '''
 @api_view(['POST', ])
