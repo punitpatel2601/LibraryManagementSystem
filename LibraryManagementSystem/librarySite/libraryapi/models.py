@@ -31,12 +31,27 @@ class Location(models.Model):
         return self.name + " " + self.address
 
 
+class BookStatus(models.Model):
+    available = models.BooleanField(default=True, primary_key=True, null=False)
+
+    location = models.ForeignKey(
+        Location, on_delete=models.CASCADE, blank=True, null=True)
+    next_availability = models.CharField(max_length=25, blank=True)
+
+    def update(self):
+        available = False
+        next_availability = "30 days"
+        location = None
+
+
+'''
 class Available_Book(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
 
 class Unavailable_Book(models.Model):
     next_availability = models.CharField(max_length=25)
+'''
 
 
 class Book(models.Model):
@@ -64,10 +79,15 @@ class Book(models.Model):
     publisher = models.ForeignKey(
         Publisher, default=0, on_delete=models.SET_DEFAULT)
 
+    book_status = models.ForeignKey(
+        BookStatus, on_delete=models.CASCADE, null=True)
+
+    '''
     book_available = models.ForeignKey(
         Available_Book, on_delete=models.CASCADE, blank=True, null=True)
     book_unavailable = models.ForeignKey(
         Unavailable_Book, on_delete=models.CASCADE, blank=True, null=True)
+    '''
 
     def __str__(self):
         return self.title
@@ -87,14 +107,30 @@ class Series(models.Model):
 class Person(models.Model):
 
     books_withdrawn = models.ForeignKey(
-        Book, on_delete=models.SET_NULL, null=True, related_name="books_with")
+        Book, on_delete=models.SET_NULL, null=True, blank=True, related_name="books_with")
     books_requested = models.ForeignKey(
-        Book, on_delete=models.SET_NULL, null=True, related_name="books_req")
+        Book, on_delete=models.SET_NULL, null=True, blank=True, related_name="books_req")
 
     ucid = models.IntegerField(primary_key=True)
     password = models.CharField(max_length=25)
     name = models.CharField(max_length=25)
-    faculty = models.CharField(max_length=25)
+
+    OTHER = 'OTHER'
+    SCIENCES = 'SCI'
+    ENGG = 'ENGG'
+    MATH = 'MATH'
+    ART = 'ART'
+    IT = 'IT'
+
+    FACULTYCHOICES = ((OTHER, 'Other'),
+                      (SCIENCES, 'Sciences'),
+                      (ENGG, 'Engineering'),
+                      (MATH, 'Mathematics'),
+                      (ART, 'Arts'),
+                      (IT, 'Information Technology'))
+
+    faculty = models.CharField(
+        max_length=25, choices=FACULTYCHOICES, default=OTHER)
 
     def __str__(self):
         return str(self.ucid)

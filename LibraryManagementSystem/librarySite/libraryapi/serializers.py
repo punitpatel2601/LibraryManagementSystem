@@ -2,7 +2,7 @@ from django.db.models import fields
 from rest_framework import serializers
 from rest_framework.serializers import PrimaryKeyRelatedField
 
-from .models import Author, Location, Book, Available_Book, Unavailable_Book, Series, Publisher, Person, Student, Professor
+from .models import Author, Location, Book, BookStatus, Series, Publisher, Person, Student, Professor
 
 
 class AuthorSerializer(serializers.ModelSerializer):
@@ -20,9 +20,10 @@ class PublisherSerializer(serializers.ModelSerializer):
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
-        fields = "__all__"
+        fields = ('name', 'address', 'phone', 'contact')
 
 
+'''
 class BookAvailableSerializer(serializers.ModelSerializer):
     location = LocationSerializer('location')
 
@@ -32,23 +33,31 @@ class BookAvailableSerializer(serializers.ModelSerializer):
 
 
 class BookUnavailableSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Unavailable_Book
         fields = ('next_availability')
+'''
+
+
+class BookStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookStatus
+        fields = ('available')
 
 
 class BookSerializer(serializers.ModelSerializer):
     author = AuthorSerializer('author')
     publisher = PublisherSerializer('publisher')
-
+    '''
     book_available = BookAvailableSerializer('book_available')
     book_unavailable = BookUnavailableSerializer('book_unavailable')
+    '''
+    book_status = BookStatusSerializer('book_status')
 
     class Meta:
         model = Book
         fields = ('id', 'title', 'year', 'pages',
-                  'description', 'copies', 'language', 'book_type', 'author', 'publisher', 'book_available', 'book_unavailable')
+                  'description', 'copies', 'language', 'book_type', 'author', 'publisher', 'book_status')
 
 
 class SeriesSerializer(serializers.ModelSerializer):
@@ -62,7 +71,7 @@ class SeriesSerializer(serializers.ModelSerializer):
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = "__all__"
+        fields = ('ucid', 'name')
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -79,26 +88,3 @@ class ProfessorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Professor
         fields = ("person", "years_taught")
-
-
-class RegistrationSerializer(serializers.ModelSerializer):
-    password2 = serializers.CharField(
-        style={'input_type': 'password'}, write_only=True)
-
-    class Meta:
-        model = Person
-        fields = ['ucid', 'password', 'password2']
-        extra_kwargs = {
-            'password': {'write_only': True}
-        }
-
-        def save(self):
-            Person = Person(
-                ucid=self.validated_data['ucid']
-            )
-            password = self.validated_data['password']
-            password2 = self.validated_data['password2']
-
-            Person.set_password[password]
-            Person.save()
-            return Person

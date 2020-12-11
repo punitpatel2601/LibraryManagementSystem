@@ -9,7 +9,22 @@ class LoginForm(forms.Form):
 class RegisterForm(forms.Form):
     ucid = forms.IntegerField(label="ucid", max_value=999999999)
     name = forms.CharField(label="name", max_length=30)
-    faculty = forms.CharField(label="faculty", max_length=30)
+
+    OTHER = 'OTHER'
+    SCIENCES = 'SCI'
+    ENGG = 'ENGG'
+    MATH = 'MATH'
+    ART = 'ART'
+    IT = 'IT'
+
+    FACULTYCHOICES = ((OTHER, 'Other'),
+                      (SCIENCES, 'Sciences'),
+                      (ENGG, 'Engineering'),
+                      (MATH, 'Mathematics'),
+                      (ART, 'Arts'),
+                      (IT, 'Information Technology'))
+
+    faculty = forms.ChoiceField(label="faculty", choices=FACULTYCHOICES)
     password = forms.CharField(label="password", widget=forms.PasswordInput)
     password2 = forms.CharField(label="password2", widget=forms.PasswordInput)
 

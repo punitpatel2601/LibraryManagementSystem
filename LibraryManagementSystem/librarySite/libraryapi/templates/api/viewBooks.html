@@ -5,9 +5,9 @@
 <div class="View-Books">
     <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif;"> Displaying Book(s) </h3>
     <p style="font-family: 'Courier New', Courier, monospace;">
-        ID----Name----Year----Availability_Location<br>
+        ID----Name----Year----Availability<br>
         {% for book in books %}
-        {{book.id}},{{book.title}}, {{book.year}}, {{book.book_availability.location.name}}<br>
+        {{book.id}},{{book.title}}, {{book.year}}, {{book.book_status}}<br>
         {% endfor %}
     </p>
 </div>

@@ -3,8 +3,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import serializers
-from .serializers import AuthorSerializer, BookSerializer, SeriesSerializer, PublisherSerializer, PersonSerializer, LocationSerializer, BookAvailableSerializer, BookUnavailableSerializer, StudentSerializer, ProfessorSerializer, RegistrationSerializer
-from .models import Author, Location, Book, Available_Book, Series, Unavailable_Book, Publisher, Person, Student, Professor
+from .serializers import AuthorSerializer, BookSerializer, SeriesSerializer, PublisherSerializer, PersonSerializer, LocationSerializer, BookStatusSerializer, StudentSerializer, ProfessorSerializer
+from .models import Author, Location, Book, Series, BookStatus, Publisher, Person, Student, Professor
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -19,14 +19,9 @@ class BookViewSet(viewsets.ModelViewSet):
     serializer_class = BookSerializer
 
 
-class BookAvailableViewSet(viewsets.ModelViewSet):
-    queryset = Available_Book.objects.all()
-    serializer_class = BookAvailableSerializer
-
-
-class BookUnavailableViewSet(viewsets.ModelViewSet):
-    queryset = Unavailable_Book.objects.all()
-    serializer_class = BookUnavailableSerializer
+class BookStatusViewSet(viewsets.ModelViewSet):
+    queryset = BookStatus.objects.all()
+    serializer_class = BookStatusSerializer
 
 
 class SeriesViewSet(viewsets.ModelViewSet):
@@ -77,6 +72,7 @@ def register(request):
             password = form.cleaned_data['password']
             password2 = form.cleaned_data['password2']
             faculty = form.cleaned_data['faculty']
+
             print(ucid)
             print(name)
             print(password)
@@ -149,15 +145,18 @@ def borrow_book(request):
 
             book = Book.objects.filter(id=query_id)
 
-            if (book and book.book_unavailable is None):
-                person.books_withdrawn = book[0]
+            if book:
+                b = book[0]
+                status = b.book_status
 
-                person.save()
+                if status.available is True:
 
-                book[0].book_available = None
-                book[0].book_unavailable = Unavailable_Book.objects.create(
-                    next_availability='30 days')
-                book[0].save()
+                    person.books_withdrawn = book[0]
+                    person.save()
+
+                    status.update()
+                    status.save()
+                    b.save()
 
             return HttpResponseRedirect('/welcome/')
     else:
