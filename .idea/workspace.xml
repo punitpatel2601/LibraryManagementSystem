@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="918996bd-56e7-4c89-b0bc-96ed2df95ec0" name="Default Changelist" comment="Books Stuff Added">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/migrations/0002_auto_20201208_2109.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/librarysite/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/librarysite/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/librarysite/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/librarysite/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/templates/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/templates/login.html" beforeDir="false" />
-    </list>
+    <list default="true" id="918996bd-56e7-4c89-b0bc-96ed2df95ec0" name="Default Changelist" comment="Books Stuff Added" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,7 +32,7 @@
       <option name="presentableId" value="Default" />
       <updated>1607450532146</updated>
       <workItem from="1607450535202" duration="3328000" />
-      <workItem from="1607454310547" duration="23717000" />
+      <workItem from="1607454310547" duration="24055000" />
     </task>
     <task id="LOCAL-00001" summary="c">
       <created>1607454626521</created>
@@ -68,7 +55,21 @@
       <option name="project" value="LOCAL" />
       <updated>1607463298472</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Books Stuff Added">
+      <created>1607724879906</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1607724879906</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Books Stuff Added">
+      <created>1607724965789</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1607724965789</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
