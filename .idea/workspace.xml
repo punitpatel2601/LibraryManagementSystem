@@ -2,25 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="918996bd-56e7-4c89-b0bc-96ed2df95ec0" name="Default Changelist" comment="Books Stuff Added">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/migrations/0002_auto_20201208_2109.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/db.sqlite3" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/migrations/0002_auto_20201208_1519.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/migrations/0003_auto_20201208_1527.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/migrations/0004_auto_20201208_1527.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/migrations/0005_auto_20201208_1600.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/migrations/0006_auto_20201208_1934.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/migrations/0007_book_available_book_unavailable.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/migrations/0008_location_phone.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/migrations/0009_auto_20201208_2000.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/migrations/0010_auto_20201208_2017.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/migrations/0002_auto_20201208_2109.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/libraryapi/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/librarysite/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/librarysite/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/librarysite/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/librarysite/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryManagementSystem/librarySite/templates/login.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +45,7 @@
       <option name="presentableId" value="Default" />
       <updated>1607450532146</updated>
       <workItem from="1607450535202" duration="3328000" />
-      <workItem from="1607454310547" duration="8346000" />
+      <workItem from="1607454310547" duration="23717000" />
     </task>
     <task id="LOCAL-00001" summary="c">
       <created>1607454626521</created>
@@ -68,7 +61,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607459126980</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Books Stuff Added">
+      <created>1607463298472</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1607463298472</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

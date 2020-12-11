@@ -2,7 +2,8 @@ from django.db.models import fields
 from rest_framework import serializers
 from rest_framework.serializers import PrimaryKeyRelatedField
 
-from .models import Author, Location, Book, Available_Book, Unavailable_Book, Series, Publisher, Person, Student, Professor
+from .models import Author, Location, Book, BookStatus, Series, Publisher, Person, Student, Professor
+
 
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,31 +23,41 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class BookSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer('author')
-    publisher = PublisherSerializer('publisher')
-
-    class Meta:
-        model = Book
-        fields = ('id', 'title', 'year', 'pages',
-                  'description', 'copies', 'language', 'book_type', 'author', 'publisher')
-
-
+'''
 class BookAvailableSerializer(serializers.ModelSerializer):
-    book = BookSerializer('book')
     location = LocationSerializer('location')
 
     class Meta:
         model = Available_Book
-        fields = ('book', 'location')
+        fields = ('location')
 
 
 class BookUnavailableSerializer(serializers.ModelSerializer):
-    book = BookSerializer('book')
-
     class Meta:
         model = Unavailable_Book
-        fields = ('next_availability', 'book')
+        fields = ('next_availability')
+'''
+
+
+class BookStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookStatus
+        fields = ('available',)
+
+
+class BookSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer('author')
+    publisher = PublisherSerializer('publisher')
+    '''
+    book_available = BookAvailableSerializer('book_available')
+    book_unavailable = BookUnavailableSerializer('book_unavailable')
+    '''
+    book_status = BookStatusSerializer('book_status')
+
+    class Meta:
+        model = Book
+        fields = ('id', 'title', 'year', 'pages',
+                  'description', 'copies', 'language', 'book_type', 'author', 'publisher', 'book_status',)
 
 
 class SeriesSerializer(serializers.ModelSerializer):
@@ -54,14 +65,15 @@ class SeriesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Series
-        fields = ('series_name', 'no_books', 'books')
-
+        fields = ('series_name', 'no_books', 'books',)
 
 
 class PersonSerializer(serializers.ModelSerializer):
+    books_withdrawn = BookSerializer('books_withdrawn')
+
     class Meta:
         model = Person
-        fields = "__all__"
+        fields = ('ucid', 'name', 'books_withdrawn',)
 
 
 class StudentSerializer(serializers.ModelSerializer):

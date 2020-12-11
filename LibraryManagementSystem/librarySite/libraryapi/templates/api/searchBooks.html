@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>Search Book!</h1>
+<div class="Search Book">
+    <h3>Enter Book ID or Book Name to search the Book.</h3><br>
+    <form action="/searchBook/" method="POST">
+        {% csrf_token %}
+        {{form}}
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+</div>
+
+{% endblock %}
