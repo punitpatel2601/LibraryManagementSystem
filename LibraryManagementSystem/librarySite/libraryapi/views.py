@@ -64,24 +64,6 @@ class ProfessorViewSet(viewsets.ModelViewSet):
     queryset = Professor.objects.all()
 
 
-'''
-class searchForPerson(APIView):
-    def get(self, request):
-        if(request.method != 'GET'):
-            return Response({'Error': 'Method not GET'}, status=status.HTTP_400_BAD_REQUEST)
-        query_name = request.query_params.get('query_name', None)
-        if ((query_name is None)):
-            return Response({'Error': 'Query must include name as query_name'}, status=status.HTTP_400_BAD_REQUEST)
-        person_list = Person.objects.filter(name=query_name)
-        if not person_list.exists():
-            return Response({'Error': 'No Person with requested id exists'}, status=status.HTTP_204_NO_CONTENT)
-        results = []
-        for x in person_list:
-            results.append(PersonSerializer(x).data)
-        return Response(results)
-'''
-
-
 def index(request):
     return render(request, 'api/index.html')
 

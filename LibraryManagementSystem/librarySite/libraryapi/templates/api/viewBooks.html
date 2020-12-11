@@ -7,7 +7,7 @@
     <p style="font-family: 'Courier New', Courier, monospace;">
         ID----Name----Year----Availability_Location<br>
         {% for book in books %}
-        {{book.id}},{{book.title}}, {{book.year}}, {{book.book_availability}}<br>
+        {{book.id}},{{book.title}}, {{book.year}}, {{book.book_availability.location.name}}<br>
         {% endfor %}
     </p>
 </div>
