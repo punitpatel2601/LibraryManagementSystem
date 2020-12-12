@@ -37,6 +37,27 @@ class SearchBookForm(forms.Form):
     series_name = forms.CharField(
         label="series_name", max_length=50, required=False)
 
+    NONE = 'NONE'
+    OTHER = 'OTHER'
+    BIOGRAPHY = 'BIOGRAPHY'
+    FICTION = 'FICTION'
+    NONFICTION = 'NON-FICTION'
+
+    BOOK_TYPES = ((NONE, 'None'),
+                  (OTHER, 'Other'),
+                  (BIOGRAPHY, 'Biography'),
+                  (FICTION, 'Fiction'),
+                  (NONFICTION, 'Non-Fiction'))
+
+    book_type = forms.ChoiceField(
+        label="Search by the book type/Genre: ", choices=BOOK_TYPES, required=False)
+
+    author_name = forms.CharField(
+        label="Search the books written by: ", max_length=50, required=False)
+
+    publisher_name = forms.CharField(
+        label="Search the books published  by: ", max_length=50, required=False)
+
 
 class BorrowBookForm(forms.Form):
     book_id = forms.IntegerField(label="book_id", max_value=999)
@@ -48,9 +69,11 @@ class ReturnBookForm(forms.Form):
 
 
 class RequestNewBookForm(forms.Form):
-    book_name = forms.CharField(label="bname", max_length=50)
-    book_author = forms.CharField(label="bauthor", max_length=50)
-    book_publisher = forms.CharField(
-        label="bpublish", max_length=50, required=False)
-    book_year = forms.IntegerField(label="byear", max_value=2021)
-    book_lan = forms.CharField(label="language", max_length=10, required=False)
+    bname = forms.CharField(label="Book Name", max_length=50)
+    bauthor = forms.CharField(label="Author", max_length=50)
+    bpublisher = forms.CharField(
+        label="Publisher", max_length=50, required=False)
+    byear = forms.IntegerField(label="Year", max_value=2021)
+    blanguage = forms.CharField(
+        label="Language", max_length=10, required=False)
+    partS = forms.BooleanField(label="Is it a part of Series")

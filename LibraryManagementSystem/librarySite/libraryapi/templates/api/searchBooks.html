@@ -7,18 +7,21 @@
     <h3>Enter Book ID or Book Name or Series Name to search the Book(s).</h3><br>
     <form action="/searchBook/" method="POST">
         {% csrf_token %}
-        {{form}}
+        <table border="0">
+            {{form}}
+        </table>
         <br>
         <input type="submit" value="Submit">
     </form>
 
 </div>
+<br>
+<br>
+<br>
 <div class="header">
-    <form action="redirectHome/" method="GET">
-        <label id="Home">Home </label><br>
-        <input type="submit">
-    </form>
+    <a href="/welcome/">Return to Home Page</a>
     <br>
     <br>
+</div>
 
-    {% endblock %}
+{% endblock %}

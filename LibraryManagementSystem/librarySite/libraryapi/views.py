@@ -102,8 +102,8 @@ def register(request):
             if(password != password2):
                 return HttpResponseRedirect('/register/')
 
-            user_instance = Person.objects.create(
-                ucid=ucid, password=password, name=name, faculty=faculty)
+            user_instance = Person.objects.create(books_withdrawn=0,
+                                                  ucid=ucid, password=password, name=name, faculty=faculty)
             user_instance.save()
 
             return HttpResponseRedirect('/login/')
@@ -119,7 +119,7 @@ person = None
 def redirect_home(request):
     if person is None:
         return index(request)
-    return HttpResponseRedirect('/welcome/')
+    return welcome(request)
 
 
 def login(request):
@@ -222,18 +222,40 @@ def search_book(request):
         if form.is_valid():
             query_name = form.cleaned_data['book_name']
             query_id = form.cleaned_data['book_id']
-            series_name = form.cleaned_data['series_name']
+            query_series_name = form.cleaned_data['series_name']
+            query_author_name = form.cleaned_data['author_name']
+            query_book_type = form.cleaned_data['book_type']
+            query_publisher_name = form.cleaned_data['publisher_name']
 
-            if(query_id == None and query_name == None and series_name == None):
+            if(query_id == None and query_name == None and series_name == None
+                    and query_author_name == None and (query_book_type == None or query_book_type == 'None')
+                    and query_publisher_name == None):
                 return HttpResponseRedirect('/searchBook/')
 
-            if (query_id):
+            if query_id:
                 books = Book.objects.filter(id=query_id)
-            elif (query_name):
+            elif query_name:
                 books = Book.objects.filter(title=query_name)
-            else:
-                # TODO search by series name
+            elif query_series_name:
                 books = []
+                for b in Book.objects.all():
+                    if (b.book_series != None and b.book_series.series_name == query_series_name):
+                        books.append(b)
+            elif query_author_name:
+                books = []
+                for b in Book.objects.all():
+                    if (b.author.name == query_author_name):
+                        books.append(b)
+            elif query_publisher_name:
+                books = []
+                for b in Book.objects.all():
+                    if(b.publisher.name == query_publisher_name):
+                        books.append(b)
+            elif query_book_type:
+                books = []
+                for b in Book.objects.all():
+                    if (b.book_type == query_book_type):
+                        books.append(b)
 
             return render(request, 'api/viewBooks.html', {'books': books, 'form': BorrowBookForm()})
         else:
@@ -249,7 +271,7 @@ def display_user_info(request):
 
 def return_book(request):
     if person is None:
-        return index('GET')
+        return index(request)
 
     if request.method == 'GET':
         form = ReturnBookForm()
@@ -273,12 +295,14 @@ def return_book(request):
                 return HttpResponseRedirect('/returnBook/')
 
             returned_book.copies += 1
+            returned_book.save()
             if returned_book.book_status.available == False:
                 returned_book.update_status(True)
 
             w = find_withdrawn_from_book_id(query_id)
             w.delete()
 
+            return redirect_home(request)
         else:
             return Response('Error', status=status.HTTP_400_BAD_REQUEST)
 
@@ -315,23 +339,22 @@ def get_user_withdrawn_books():
 
 def requestBooks(request):
     if person is None:
-        return index('GET')
+        return index(request)
 
     if request.method == 'GET':
         form = RequestNewBookForm()
-        return HttpResponseRedirect('/welcome/')
     else:
         form = RequestNewBookForm(request.POST)
 
         if form.is_valid():
-            query_name = form.cleaned_data('bname')
-            query_author = form.cleaned_data('bauthor')
-            query_publisher = form.cleaned_data('bpublisher')
-            query_year = form.cleaned_data('byear')
-            query_lang = form.cleaned_data('blanguage')
+            query_name = form.cleaned_data['bname']
+            query_author = form.cleaned_data['bauthor']
+            query_publisher = form.cleaned_data['bpublisher']
+            query_year = form.cleaned_data['byear']
+            query_lang = form.cleaned_data['blanguage']
 
         BooksRequest.objects.create(
-            requestid=person.ucid, book_name=query_name, book_author=query_author, book_year=query_year, book_publisher=query_author, book_language=query_lang)
+            requestid=person.ucid, book_name=query_name, book_author=query_author, book_year=query_year, book_publisher=query_publisher, book_language=query_lang)
 
     return render(request, 'api/request.html', {'form': form})
 

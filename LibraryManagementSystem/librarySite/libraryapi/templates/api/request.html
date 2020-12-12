@@ -5,19 +5,24 @@
 <h3>Please Enter the details of the book, you want Library to buy!</h3>
 <div class="request">
 
-    <form action="/request/" method="POST">
+    <form action="/requestNewBook/" method="POST">
         {% csrf_token %}
-        {{form}}
+        <table border="0">
+            {{form}}
+        </table>
+        <br>
+        <br>
         <input type="submit" value="Submit">
     </form>
-
 </div>
+<br>
+<br>
+<br>
 <div class="header">
-    <form action="redirectHome/" method="GET">
-        <label id="Home">Home </label><br>
-        <input type="submit">
-    </form>
+    <a href="/welcome/">Return to Home Page</a>
     <br>
     <br>
+</div>
 
-    {% endblock %}
+
+{% endblock %}

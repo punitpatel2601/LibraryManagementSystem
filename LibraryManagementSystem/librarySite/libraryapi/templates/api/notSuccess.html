@@ -3,14 +3,26 @@
 {% block content %}
 
 <div class="index">
-    <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif;"> You entered wrong UCID or Password!!! </h2>
-    <h3> Please try again...</h3>
-    <p style="font-family: 'Courier New', Courier, monospace;">
-        Please login to access the library system<br>
-        Or Register, if you are using this system for first time<br>
-    </p>
-    <h5> <a href="/login"> Please click here to login. </a> </h5><br>
-    <h5><a href="/register">Click here to register!</a></h5>
+    <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif;"> You entered wrong UCID or Password!!! </h3>
+    <table border="0">
+        <tr>
+            <td>
+                <h3> Please try again...</h3>
+                <p style="font-family: 'Courier New', Courier, monospace;">
+                    Please login to access the library system<br>
+                    Or Register, if you are using this system for first time<br>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h4> <a href="/login"> Please click here to login. </a> </h4><br>
+            </td>
+            <td>
+                <h4><a href="/register">Click here to register!</a></h4>
+            </td>
+        </tr>
+    </table>
 </div>
 
 {% endblock %}

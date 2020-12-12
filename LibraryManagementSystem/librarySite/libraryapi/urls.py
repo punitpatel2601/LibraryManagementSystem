@@ -9,9 +9,6 @@ router.register(r'booksStatus', views.BookStatusViewSet)
 router.register(r'series', views.SeriesViewSet)
 router.register(r'authors', views.AuthorViewSet)
 router.register(r'publishers', views.PublisherViewSet)
-router.register(r'persons', views.PersonViewSet)
-router.register(r'students', views.StudentViewSet)
-router.register(r'professors', views.ProfessorViewSet)
 router.register(r'bookWithdrawn', views.BooksWithdrawnViewSet)
 router.register(r'requestedBooks', views.RequestNewBookViewSet)
 
@@ -36,13 +33,5 @@ urlpatterns = [
     path('welcome/returnBook/', views.return_book),
     path('requestNewBook/', views.requestBooks),
     path('welcome/requestNewBook/', views.requestBooks),
-    path('redirectHome/', views.redirect_home),
-    path('welcome/viewBooks/redirectHome/', views.redirect_home),
-    path('welcome/searchBook/redirectHome/', views.redirect_home),
-    path('searchBook/redirectHome/', views.redirect_home),
-    path('selectBook/redirectHome/', views.redirect_home),
-    path('welcome/viewBooks/selectBook/redirectHome/', views.redirect_home),
-    path('returnBook/redirectHome/', views.redirect_home),
-    path('welcome/returnBook/redirectHome/', views.redirect_home),
     path('welcome/viewBooks/borrowSuccess/', views.redirect_home),
 ]

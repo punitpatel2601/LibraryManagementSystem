@@ -4,25 +4,42 @@
 
 <div class="User Information">
     <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif;"> Displaying Book(s) </h3>
-    <p style="font-family: 'Courier New', Courier, monospace;">
-        {{person.ucid}}, {{person.name}}, {{person.faculty}}, {{person.books_withdrawn}}
-        <br>
-        Books Withdrawn<br>
-        ID----Name----Year----Availability<br>
+    <table border="0">
+        <tr>
+            <td> {{person.ucid}} </td>
+            <td>{{person.name}}</td>
+            <td>{{person.faculty}}</td>
+            <td>{{person.books_withdrawn}}</td>
+        </tr>
+        <tr>
+            <td><br></td>
+        </tr>
+        <tr>
+            <td>Books Withdrawn</td>
+        </tr>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Year</td>
+        </tr>
         {% for book in books %}
-        {{book.id}},{{book.title}}, {{book.year}}<br>
+        <tr>
+            <td>{{book.id}}</td>
+            <td>{{book.title}}</td>
+            <td>{{book.year}}</td>
+        </tr>
         {% endfor %}
-    </p>
+    </table>
 </div>
 <br>
 <br>
+<br>
 <div class="header">
-    <form action="redirectHome/" method="GET">
-        <label id="Home">Home </label><br>
-        <input type="submit">
-    </form>
+    <a href="/welcome/">Return to Home Page</a>
     <br>
     <br>
+</div>
 
 
-    {% endblock %}
+
+{% endblock %}

@@ -7,7 +7,9 @@
 
     <form action="/register/" method="POST">
         {% csrf_token %}
-        {{form}}
+        <table border="0">
+            {{form}}
+        </table>
         <br>
         <br>
         <input type="submit" value="Submit">

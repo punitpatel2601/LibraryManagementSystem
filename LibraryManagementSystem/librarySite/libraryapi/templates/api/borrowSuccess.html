@@ -6,18 +6,51 @@
     <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif;"> Successfully Borrowed Book </h2>
     <h3> Confirmation </h3>
     <p style="font-family: 'Courier New', Courier, monospace;">
-        ID----Name----Year---Location<br>
-        {{book.id}},{{book.title}}, {{book.year}, {book.book_status.location}}<br>
-    </p>
-    <h5> <a href="/login"> Please click here to login. </a> </h5><br>
-    <h5><a href="/register">Click here to register!</a></h5>
-</div>
-<div class="header">
-    <form action="redirectHome/" method="GET">
-        <label id="Home">Home </label><br>
-        <input type="submit">
-    </form>
-    <br>
-    <br>
 
-    {% endblock %}
+    <table border="0">
+        <tr>
+            <td>
+                Confirmation
+            </td>
+        </tr>
+        <tr>
+            <td>
+                ID
+            </td>
+            <td>
+                Name
+            </td>
+            <td>
+                Year
+            </td>
+            <td>
+                Location
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{book.id}}
+            </td>
+            <td>
+                {{book.title}}
+            </td>
+            <td>
+                {{book.year}}
+            </td>
+            <td>
+                {{book.book_status.location}}
+            </td>
+        </tr>
+    </table>
+    </p>
+</div>
+<br>
+<br>
+<br>
+<div class="header">
+    <a href="/welcome/">Return to Home Page</a>
+    <br>
+    <br>
+</div>
+
+{% endblock %}

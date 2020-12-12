@@ -35,27 +35,22 @@ class BookStatusSerializer(serializers.ModelSerializer):
         fields = ('available',)
 
 
+class SeriesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Series
+        fields = ('series_name', 'no_books',)
+
+
 class BookSerializer(serializers.ModelSerializer):
     author = AuthorSerializer('author')
     publisher = PublisherSerializer('publisher')
-    '''
-    book_available = BookAvailableSerializer('book_available')
-    book_unavailable = BookUnavailableSerializer('book_unavailable')
-    '''
+    book_series = SeriesSerializer("book_series")
     book_status = BookStatusSerializer('book_status')
 
     class Meta:
         model = Book
         fields = ('id', 'title', 'year', 'pages',
-                  'description', 'copies', 'language', 'book_type', 'author', 'publisher', 'book_status',)
-
-
-class SeriesSerializer(serializers.ModelSerializer):
-    books = BookSerializer('books')
-
-    class Meta:
-        model = Series
-        fields = ('series_name', 'no_books', 'books',)
+                  'description', 'copies', 'language', 'book_type', 'author', 'publisher', 'book_status', 'book_series')
 
 
 class BooksWithdrawnSerializer(serializers.ModelSerializer):

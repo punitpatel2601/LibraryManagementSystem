@@ -47,6 +47,14 @@ class BookStatus(models.Model):
         return "Available: " + str(self.available)
 
 
+class Series(models.Model):
+    series_name = models.CharField(max_length=50)
+    no_books = models.IntegerField()
+
+    def __str__(self):
+        return self.series_name
+
+
 class Book(models.Model):
     id = models.IntegerField(primary_key=True, unique=True)
     title = models.CharField(max_length=100)
@@ -75,9 +83,12 @@ class Book(models.Model):
     book_status = models.ForeignKey(
         BookStatus, on_delete=models.CASCADE, null=True)
 
+    book_series = models.ForeignKey(
+        Series, on_delete=models.CASCADE, null=True)
+
     def update_status(self, status):
         if status:
-            loc = Location.objects.filter(id=0)
+            loc = Location.objects.all()[0]
             self.book_status = BookStatus.objects.create(
                 available=True, next_availability="", location=loc)
             self.book_status.save()
@@ -88,24 +99,8 @@ class Book(models.Model):
             self.book_status.save()
             self.save()
 
-    '''
-    book_available = models.ForeignKey(
-        Available_Book, on_delete=models.CASCADE, blank=True, null=True)
-    book_unavailable = models.ForeignKey(
-        Unavailable_Book, on_delete=models.CASCADE, blank=True, null=True)
-    '''
-
     def __str__(self):
         return self.title
-
-
-class Series(models.Model):
-    series_name = models.CharField(max_length=50)
-    no_books = models.IntegerField()
-    books = models.ForeignKey(Book, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.series_name
 
 
 class BooksWithdrawn(models.Model):
@@ -123,28 +118,19 @@ class BooksRequest(models.Model):
     book_year = models.IntegerField()
     book_language = models.CharField(max_length=10, null=True, blank=True)
 
-    def __str__(self):
-        return "Request from " + str(requestid)
-
 
 class Order(models.Model):
     order_num = models.IntegerField(primary_key=True, unique=True)
     cost = models.IntegerField(null=True, blank=False)
-
-    def __str__(self):
-        return order_num
 
 
 class OrderContents(models.Model):
     orderNo = models.ForeignKey(Order, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return orderNo + book
-
 
 class Person(models.Model):
-    books_withdrawn = models.IntegerField(null=True)
+    books_withdrawn = models.IntegerField(null=True, default=0)
     books_requested = models.ForeignKey(
         Book, on_delete=models.SET_NULL, null=True, blank=True, related_name="books_required")
 
@@ -169,6 +155,15 @@ class Person(models.Model):
     faculty = models.CharField(
         max_length=25, choices=FACULTYCHOICES, default=OTHER)
 
+    STUDENT = 'STUDENT'
+    PROFESSOR = 'PROFESSOR'
+
+    P_TYPE = ((STUDENT, 'Student'),
+              (PROFESSOR, 'Professor'))
+
+    person_type = models.CharField(
+        max_length=25, choices=P_TYPE, default=STUDENT)
+
     def __str__(self):
         return str(self.ucid)
 
@@ -183,7 +178,7 @@ class Student(models.Model):
 
 class Professor(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    years_taught = models.IntegerField
+    years_taught = models.IntegerField(null=True)
 
     def __str__(self):
         return str(self.person) + " Years Taught: " + str(self.years_taught)
