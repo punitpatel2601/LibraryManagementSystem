@@ -2,13 +2,12 @@
 
 {% block content %}
 
-<h1>Search Book!</h1>
-<div class="Search Book">
-    <h3>Enter Book ID or Book Name or Series Name to search the Book(s).</h3><br>
-    <form action="/searchBook/" method="POST">
+<h3>Please Enter the details of the book, you want Library to buy!</h3>
+<div class="request">
+
+    <form action="/request/" method="POST">
         {% csrf_token %}
         {{form}}
-        <br>
         <input type="submit" value="Submit">
     </form>
 

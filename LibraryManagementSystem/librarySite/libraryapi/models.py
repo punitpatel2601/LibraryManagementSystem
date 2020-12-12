@@ -47,16 +47,6 @@ class BookStatus(models.Model):
         return "Available: " + str(self.available)
 
 
-'''
-class Available_Book(models.Model):
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
-
-
-class Unavailable_Book(models.Model):
-    next_availability = models.CharField(max_length=25)
-'''
-
-
 class Book(models.Model):
     id = models.IntegerField(primary_key=True, unique=True)
     title = models.CharField(max_length=100)
@@ -85,10 +75,18 @@ class Book(models.Model):
     book_status = models.ForeignKey(
         BookStatus, on_delete=models.CASCADE, null=True)
 
-    def update_status(self):
-        self.book_status = BookStatus.objects.create(available=False, next_availability="30 Days", location=None)
-        self.book_status.save()
-        self.save()
+    def update_status(self, status):
+        if status:
+            loc = Location.objects.filter(id=0)
+            self.book_status = BookStatus.objects.create(
+                available=True, next_availability="", location=loc)
+            self.book_status.save()
+            self.save()
+        else:
+            self.book_status = BookStatus.objects.create(
+                available=False, next_availability="30 Days", location=None)
+            self.book_status.save()
+            self.save()
 
     '''
     book_available = models.ForeignKey(
@@ -110,16 +108,47 @@ class Series(models.Model):
         return self.series_name
 
 
+class BooksWithdrawn(models.Model):
+    withdrawerid = models.IntegerField()
+    bookid = models.ForeignKey(Book, on_delete=models.CASCADE)
+
 # Users/Admin
 
-class Person(models.Model):
 
-    books_withdrawn = models.ForeignKey(
-        Book, on_delete=models.SET_NULL, null=True, blank=True, related_name="books_withdrawn")
+class BooksRequest(models.Model):
+    requestid = models.IntegerField(null=True)
+    book_name = models.CharField(max_length=50, null=False,)
+    book_author = models.CharField(max_length=50, null=False)
+    book_publisher = models.CharField(max_length=50, null=True, blank=True)
+    book_year = models.IntegerField()
+    book_language = models.CharField(max_length=10, null=True, blank=True)
+
+    def __str__(self):
+        return "Request from " + str(requestid)
+
+
+class Order(models.Model):
+    order_num = models.IntegerField(primary_key=True, unique=True)
+    cost = models.IntegerField(null=True, blank=False)
+
+    def __str__(self):
+        return order_num
+
+
+class OrderContents(models.Model):
+    orderNo = models.ForeignKey(Order, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return orderNo + book
+
+
+class Person(models.Model):
+    books_withdrawn = models.IntegerField(null=True)
     books_requested = models.ForeignKey(
         Book, on_delete=models.SET_NULL, null=True, blank=True, related_name="books_required")
 
-    ucid = models.IntegerField(primary_key=True)
+    ucid = models.IntegerField(primary_key=True, unique=True)
     password = models.CharField(max_length=25)
     name = models.CharField(max_length=25)
 

@@ -9,7 +9,7 @@
         This system is designed to help libraries to offer services Online.<br>
     </p>
 </div>
-
+<br>
 <div class="header">
     <form action="viewBooks/" method="GET">
         <label id="viewBooks">View all Books </label><br>
@@ -23,5 +23,22 @@
     </form>
     <br>
     <br>
+    <form action="/userInfo/" method="GET">
+        <label id="uinfo"> User Information</label><br>
+        <input type="submit">
+    </form>
+    <br>
+    <br>
+    <form action="returnBook/" method="GET">
+        <label id="rBook">Return Books</label><br>
+        <input type="submit">
+    </form>
+    <br>
+    <br>
+    <form action="requestNewBook/" method="GET">
+        <label id="reqBook">Request New Books</label><br>
+        <input type="submit">
+    </form>
+
 
     {% endblock %}

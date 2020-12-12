@@ -2,7 +2,7 @@ from django.db.models import fields
 from rest_framework import serializers
 from rest_framework.serializers import PrimaryKeyRelatedField
 
-from .models import Author, Location, Book, BookStatus, Series, Publisher, Person, Student, Professor
+from .models import *
 
 
 class AuthorSerializer(serializers.ModelSerializer):
@@ -23,20 +23,10 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-'''
-class BookAvailableSerializer(serializers.ModelSerializer):
-    location = LocationSerializer('location')
-
+class OrderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Available_Book
-        fields = ('location')
-
-
-class BookUnavailableSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Unavailable_Book
-        fields = ('next_availability')
-'''
+        model = Order
+        fields = "__all__"
 
 
 class BookStatusSerializer(serializers.ModelSerializer):
@@ -68,9 +58,30 @@ class SeriesSerializer(serializers.ModelSerializer):
         fields = ('series_name', 'no_books', 'books',)
 
 
-class PersonSerializer(serializers.ModelSerializer):
-    books_withdrawn = BookSerializer('books_withdrawn')
+class BooksWithdrawnSerializer(serializers.ModelSerializer):
+    bookid = BookSerializer('bookid')
 
+    class Meta:
+        model = BooksWithdrawn
+        fields = ('withdrawerid', 'bookid',)
+
+
+class BooksRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BooksRequest
+        fields = ('requestid', 'book_name', 'book_author', 'book_year',)
+
+
+class OrderContentsSerializer(serializers.ModelSerializer):
+    orderNo = OrderSerializer('orderNo')
+    book = BookSerializer('book')
+
+    class Meta:
+        model = OrderContents
+        fields = ('orderNo', 'book')
+
+
+class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
         fields = ('ucid', 'name', 'books_withdrawn',)

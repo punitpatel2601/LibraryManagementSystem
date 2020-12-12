@@ -2,28 +2,20 @@
 
 {% block content %}
 
-<div class="View-Books">
+<div class="User Information">
     <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif;"> Displaying Book(s) </h3>
     <p style="font-family: 'Courier New', Courier, monospace;">
+        {{person.ucid}}, {{person.name}}, {{person.faculty}}, {{person.books_withdrawn}}
+        <br>
+        Books Withdrawn<br>
         ID----Name----Year----Availability<br>
         {% for book in books %}
-        {{book.id}},{{book.title}}, {{book.year}}, {{book.copies}}, {{book.book_status}}<br>
+        {{book.id}},{{book.title}}, {{book.year}}<br>
         {% endfor %}
     </p>
 </div>
 <br>
 <br>
-<div class="Issue-Book">
-    <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Select the book you need to Borrow.. </h3>
-    <p>Please take a note of the ID of the book, you want to borrow.</p>
-    <form action="/selectBook/" method="POST">
-        {% csrf_token %}
-        {{form}}
-        <br>
-        <input type="submit" value="Submit">
-    </form>
-    </p>
-</div>
 <div class="header">
     <form action="redirectHome/" method="GET">
         <label id="Home">Home </label><br>
@@ -31,5 +23,6 @@
     </form>
     <br>
     <br>
+
 
     {% endblock %}

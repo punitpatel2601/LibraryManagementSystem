@@ -34,7 +34,23 @@ class SearchBookForm(forms.Form):
         label="book_name", max_length=50, required=False)
     book_id = forms.IntegerField(
         label="book_id", max_value=999, required=False)
+    series_name = forms.CharField(
+        label="series_name", max_length=50, required=False)
 
 
 class BorrowBookForm(forms.Form):
     book_id = forms.IntegerField(label="book_id", max_value=999)
+
+
+class ReturnBookForm(forms.Form):
+    book_id = forms.IntegerField(
+        label="book_id", max_value=999, required=True)
+
+
+class RequestNewBookForm(forms.Form):
+    book_name = forms.CharField(label="bname", max_length=50)
+    book_author = forms.CharField(label="bauthor", max_length=50)
+    book_publisher = forms.CharField(
+        label="bpublish", max_length=50, required=False)
+    book_year = forms.IntegerField(label="byear", max_value=2021)
+    book_lan = forms.CharField(label="language", max_length=10, required=False)

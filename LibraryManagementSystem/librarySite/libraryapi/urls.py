@@ -12,6 +12,8 @@ router.register(r'publishers', views.PublisherViewSet)
 router.register(r'persons', views.PersonViewSet)
 router.register(r'students', views.StudentViewSet)
 router.register(r'professors', views.ProfessorViewSet)
+router.register(r'bookWithdrawn', views.BooksWithdrawnViewSet)
+router.register(r'requestedBooks', views.RequestNewBookViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
@@ -29,4 +31,18 @@ urlpatterns = [
     path('selectBook/', views.borrow_book),
     path('welcome/selectBook/', views.borrow_book),
     path('welcome/viewBooks/selectBook/', views.borrow_book),
+    path('userInfo/', views.display_user_info),
+    path('returnBook/', views.return_book),
+    path('welcome/returnBook/', views.return_book),
+    path('requestNewBook/', views.requestBooks),
+    path('welcome/requestNewBook/', views.requestBooks),
+    path('redirectHome/', views.redirect_home),
+    path('welcome/viewBooks/redirectHome/', views.redirect_home),
+    path('welcome/searchBook/redirectHome/', views.redirect_home),
+    path('searchBook/redirectHome/', views.redirect_home),
+    path('selectBook/redirectHome/', views.redirect_home),
+    path('welcome/viewBooks/selectBook/redirectHome/', views.redirect_home),
+    path('returnBook/redirectHome/', views.redirect_home),
+    path('welcome/returnBook/redirectHome/', views.redirect_home),
+    path('welcome/viewBooks/borrowSuccess/', views.redirect_home),
 ]

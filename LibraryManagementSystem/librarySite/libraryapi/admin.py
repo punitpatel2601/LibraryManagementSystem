@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Author, Book, Series, Publisher, Person, Student, Professor, BookStatus, Location
+from .models import *
 
 # Register your models here.
 admin.site.register(Book)
@@ -11,3 +11,5 @@ admin.site.register(Publisher)
 admin.site.register(Person)
 admin.site.register(Student)
 admin.site.register(Professor)
+admin.site.register(BooksWithdrawn)
+admin.site.register(BooksRequest)
