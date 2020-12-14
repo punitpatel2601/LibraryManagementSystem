@@ -4,6 +4,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import serializers
 
+import sys
+import hashlib
+if sys.version_info < (3, 6):
+    import sha3
+
 from .serializers import *
 from .models import *
 from .forms import *
@@ -11,8 +16,14 @@ from .forms import *
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
-
 # Create your views here.
+
+
+def SHA3Hasher(passcode):
+    encoded_pass = passcode.encode()
+    hashed = hashlib.sha256(encoded_pass)
+
+    return hashed.hexdigest()
 
 
 class BookViewSet(viewsets.ModelViewSet):
@@ -93,6 +104,8 @@ def register(request):
             password = form.cleaned_data['password']
             password2 = form.cleaned_data['password2']
             faculty = form.cleaned_data['faculty']
+            ptype = form.cleaned_data['ptype']
+            addi = form.cleaned_data['addi']
 
             print(ucid)
             print(name)
@@ -102,9 +115,23 @@ def register(request):
             if(password != password2):
                 return HttpResponseRedirect('/register/')
 
-            user_instance = Person.objects.create(books_withdrawn=0,
-                                                  ucid=ucid, password=password, name=name, faculty=faculty)
-            user_instance.save()
+            hashpassword = SHA3Hasher(password)
+            try:
+                user_instance = Person.objects.create(books_withdrawn=0,
+                                                      ucid=ucid, password=hashpassword, name=name, faculty=faculty, person_type=ptype)
+                user_instance.save()
+
+                if ptype == 'STUDENT':
+                    student = Student.objects.create(
+                        person=user_instance, major=addi)
+                    student.save()
+                elif ptype == 'PROFESSOR':
+                    prof = Professor.objects.create(
+                        person=user_instance, years_taught=addi)
+                    prof.save()
+            except:
+                form = RegisterForm()
+                return render(request, 'api/registerfailed.html', {'form': form})
 
             return HttpResponseRedirect('/login/')
     else:
@@ -119,7 +146,7 @@ person = None
 def redirect_home(request):
     if person is None:
         return index(request)
-    return welcome(request)
+    return HttpResponseRedirect('/welcome/')
 
 
 def login(request):
@@ -129,10 +156,12 @@ def login(request):
             ucid = form.cleaned_data['ucid']
             password = form.cleaned_data['password']
 
+            hashedpassword = SHA3Hasher(password)
+
             person_list = Person.objects.all()
             found = False
             for p in person_list:
-                if (p.ucid == ucid and p.password == password):
+                if (p.ucid == ucid and p.password == hashedpassword):
                     found = True
                     global person
                     person = p
@@ -146,6 +175,14 @@ def login(request):
         form = LoginForm()
 
     return render(request, 'api/login.html', {'form': form})
+
+
+def logout(request):
+    if person is None:
+        return index(request)
+
+    print(person.ucid)
+    return render(request, 'api/logout.html')
 
 
 def welcome(request):
@@ -357,21 +394,3 @@ def requestBooks(request):
             requestid=person.ucid, book_name=query_name, book_author=query_author, book_year=query_year, book_publisher=query_publisher, book_language=query_lang)
 
     return render(request, 'api/request.html', {'form': form})
-
-
-'''
-@api_view(['POST', ])
-def registration_view(request):
-
-    if request.method == 'POST':
-        serializer = RegistrationSerializer(data=request.data)
-        data = {}
-        if serializer.is_valid:
-            person = serializer.save()
-            data['response'] = "success"
-            data['ucid'] = person.ucid
-            data['password'] = person.password
-            else:
-                data = serializer.errors
-                return Response(data)
-'''

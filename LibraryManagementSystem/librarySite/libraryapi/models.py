@@ -135,7 +135,7 @@ class Person(models.Model):
         Book, on_delete=models.SET_NULL, null=True, blank=True, related_name="books_required")
 
     ucid = models.IntegerField(primary_key=True, unique=True)
-    password = models.CharField(max_length=25)
+    password = models.CharField(max_length=10000)
     name = models.CharField(max_length=25)
 
     OTHER = 'OTHER'

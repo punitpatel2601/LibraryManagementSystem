@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+
+<h2>UCID you entered is already registered in system, Try Login in</h2>
+<table border="0">
+    <tr>
+        <td>
+            <h4> <a href="/login"> Please click here to login. </a> </h4><br>
+        </td>
+    </tr>
+</table>
+
+<br>
+<h2>OR
+    <br>
+    <br>
+    Retry Registering with different UCID
+</h2>
+<div class="register">
+
+    <form action="/register/" method="POST">
+        {% csrf_token %}
+        <table border="0">
+            {{form}}
+        </table>
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+</div>
+
+{% endblock %}

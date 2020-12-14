@@ -34,4 +34,5 @@ urlpatterns = [
     path('requestNewBook/', views.requestBooks),
     path('welcome/requestNewBook/', views.requestBooks),
     path('welcome/viewBooks/borrowSuccess/', views.redirect_home),
+    path('welcome/logout/', views.logout),
 ]
