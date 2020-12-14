@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>Search Book!</h1>
+<div class="Search Book">
+    <h3>Select a way you want to search the Book(s).</h3><br>
+    <form action="/searchBook/" method="POST">
+        {% csrf_token %}
+        <table border="0">
+            {{form}}
+        </table>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+</div>
+<br>
+<br>
+<br>
+<div class="header">
+    <a href="/welcome/">Return to Home Page</a>
+    <br>
+    <br>
+</div>
+
+{% endblock %}

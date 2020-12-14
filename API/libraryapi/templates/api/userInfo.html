@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="User Information">
+    <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif;"> Displaying Book(s) </h3>
+    <table border="0">
+        <tr>
+            <td>UCID : </td>
+            <td> {{person.ucid}} </td>
+        </tr>
+        <tr>
+            <td>Name :</td>
+            <td>{{person.name}}</td>
+        </tr>
+        <tr>
+            <td>Faculty : </td>
+            <td>{{person.faculty}}</td>
+        </tr>>
+        <td>{{person.books_withdrawn}}</td>
+        <td>{{person.person_type}}</td>
+        </tr>
+        <tr>
+            <td><br></td>
+        </tr>
+        <tr>
+            <td>Books Withdrawn</td>
+        </tr>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Year</td>
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td>{{book.id}}</td>
+            <td>{{book.title}}</td>
+            <td>{{book.year}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<br>
+<br>
+<br>
+<div class="header">
+    <a href="/welcome/">Return to Home Page</a>
+    <br>
+    <br>
+</div>
+
+
+
+{% endblock %}

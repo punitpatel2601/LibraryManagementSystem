@@ -2,7 +2,7 @@ from django.db.models import fields
 from rest_framework import serializers
 from rest_framework.serializers import PrimaryKeyRelatedField
 
-from .models import Author, Book, Publisher, Customer, Student, Professor
+from .models import *
 
 
 class AuthorSerializer(serializers.ModelSerializer):
@@ -17,30 +17,82 @@ class PublisherSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'country', 'phone')
 
 
-class BookSerializer(serializers.ModelSerializer):
+class LocationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Book
-        fields = ('id', 'title', 'year', 'pages',
-                  'description', 'copies', 'language')
-
-
-class CustomerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Customer
+        model = Location
         fields = "__all__"
 
 
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = "__all__"
+
+
+class BookStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookStatus
+        fields = ('available',)
+
+
+class SeriesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Series
+        fields = ('series_name', 'no_books',)
+
+
+class BookSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer('author')
+    publisher = PublisherSerializer('publisher')
+    book_series = SeriesSerializer("book_series")
+    book_status = BookStatusSerializer('book_status')
+
+    class Meta:
+        model = Book
+        fields = ('id', 'title', 'year', 'pages',
+                  'description', 'copies', 'language', 'book_type', 'author', 'publisher', 'book_status', 'book_series')
+
+
+class BooksWithdrawnSerializer(serializers.ModelSerializer):
+    bookid = BookSerializer('bookid')
+
+    class Meta:
+        model = BooksWithdrawn
+        fields = ('withdrawerid', 'bookid',)
+
+
+class BooksRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BooksRequest
+        fields = ('requestid', 'book_name', 'book_author', 'book_year',)
+
+
+class OrderContentsSerializer(serializers.ModelSerializer):
+    orderNo = OrderSerializer('orderNo')
+    book = BookSerializer('book')
+
+    class Meta:
+        model = OrderContents
+        fields = ('orderNo', 'book')
+
+
+class PersonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Person
+        fields = ('ucid', 'name', 'books_withdrawn',)
+
+
 class StudentSerializer(serializers.ModelSerializer):
-    customer = CustomerSerializer("customer")
+    person = PersonSerializer("person")
 
     class Meta:
         model = Student
-        fields = ("customer", "major")
+        fields = ("person", "major")
 
 
 class ProfessorSerializer(serializers.ModelSerializer):
-    customer = CustomerSerializer("customer")
+    person = PersonSerializer("person")
 
     class Meta:
         model = Professor
-        fields = ("customer", "years_taught")
+        fields = ("person", "years_taught")

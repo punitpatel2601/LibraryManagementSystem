@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="Books Withdrawn">
+    <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Displaying Book(s) you have withdrawn</h3>
+    <table border="0">
+        <tr>
+            <td>
+                Books Withdrawn
+            </td>
+        </tr>
+        <tr>
+            <td>
+                ID
+            </td>
+            <td>
+                Name
+            </td>
+            <td>
+                Year
+            </td>
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td>
+                {{book.id}}
+            </td>
+            <td>
+                {{book.title}}
+            </td>
+            <td>
+                {{book.year}}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<br>
+<br>
+<div class="Return Book">
+    <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Return a Book </h3>
+    <table border="0">
+        <tr>
+            <td>
+                <p>Book Details</p>
+            </td>
+        </tr>
+    </table>
+
+    <form action="/returnBook/" method="POST">
+        {% csrf_token %}
+        <table>
+            {{form}}
+        </table>
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    </p>
+</div>
+<br>
+<br>
+<br>
+<div class="header">
+    <a href="/welcome/">Return to Home Page</a>
+    <br>
+    <br>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h3>Please Enter the details of the book, you want Library to buy!</h3>
+<div class="request">
+
+    <form action="/requestNewBook/" method="POST">
+        {% csrf_token %}
+        <table border="0">
+            {{form}}
+        </table>
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+<br>
+<br>
+<br>
+<div class="header">
+    <a href="/welcome/">Return to Home Page</a>
+    <br>
+    <br>
+</div>
+
+
+{% endblock %}

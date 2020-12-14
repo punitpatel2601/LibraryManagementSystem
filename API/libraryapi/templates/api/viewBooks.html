@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="View-Books">
+    <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif;"> Displaying Book(s) </h3>
+    <table border="3.5">
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Year</td>
+            <td>Copies</td>
+            <td>Type</td>
+            <td>Author</td>
+            <td>Publisher</td>
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td>{{book.id}}</td>
+            <td>{{book.title}}</td>
+            <td>{{book.year}}</td>
+            <td>{{book.copies}}</td>
+            <td>{{book.book_type}}</td>
+            <td>{{book.author.name}}</td>
+            <td>{{book.publisher.name}}</td>
+            <td>{{book.book_status}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<br>
+<br>
+<div class="Issue-Book">
+    <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Select the book you need to Borrow.. </h3>
+    <p>Please take a note of the ID of the book, you want to borrow.</p>
+    <form action="/selectBook/" method="POST">
+        {% csrf_token %}
+        <table border="0">
+            {{form}}
+        </table>
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    </p>
+</div>
+<br>
+<br>
+<br><br>
+<br>
+<br>
+<div class="header">
+    <a href="/welcome/">Return to Home Page</a>
+    <br>
+    <br>
+</div>
+
+
+{% endblock %}

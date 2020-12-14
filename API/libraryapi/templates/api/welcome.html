@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>Virtual Library</h1>
+<div class="welcome">
+    <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif;"> Welcome to Online Library </h3>
+    <p style="font-family: 'Courier New', Courier, monospace;">
+        This system is designed to help libraries to offer services Online.<br>
+    </p>
+</div>
+<br>
+<div class="header">
+    <form action="viewBooks/" method="GET">
+        <label id="viewBooks">View all Books </label><br>
+        <input type="submit">
+    </form>
+    <br>
+    <br>
+    <form action="searchBook/" method="GET">
+        <label id="sBookname">Search Books</label><br>
+        <input type="submit">
+    </form>
+    <br>
+    <br>
+    <form action="/userInfo/" method="GET">
+        <label id="uinfo"> User Information</label><br>
+        <input type="submit">
+    </form>
+    <br>
+    <br>
+    <form action="returnBook/" method="GET">
+        <label id="rBook">Return Books</label><br>
+        <input type="submit">
+    </form>
+    <br>
+    <br>
+    <form action="requestNewBook/" method="GET">
+        <label id="reqBook">Request New Books</label><br>
+        <input type="submit">
+    </form>
+    <br>
+    <br>
+    <h4> <a href="logout/">Logout </a> </h4><br>
+</div>
+
+{% endblock %}
